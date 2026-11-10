@@ -1,0 +1,6 @@
+{
+  "name": "Expense Tracker",
+  "description": "A clean, robust personal expense tracker with monthly breakdown summaries, category analytics, full CRUD operations, and multi-field filtering.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

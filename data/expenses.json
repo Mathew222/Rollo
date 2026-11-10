@@ -1,0 +1,83 @@
+[
+  {
+    "id": "66b90efd-c0eb-4336-a69b-93cd03ff2706",
+    "title": "Coffee & Breakfast at Blue Tokai",
+    "amount": 380,
+    "category": "Food",
+    "date": "2026-11-10",
+    "note": "Cappuccino with croissant",
+    "createdAt": "2026-11-10T04:12:45.202Z"
+  },
+  {
+    "id": "11df0b65-c12f-4b2a-b46d-daf19a1e215b",
+    "title": "Metro Monthly Smart Card",
+    "amount": 1200,
+    "category": "Transport",
+    "date": "2026-11-08",
+    "note": "Monthly city metro pass reload",
+    "createdAt": "2026-11-08T06:12:45.202Z"
+  },
+  {
+    "id": "5966c1e3-9638-42f7-9e0b-9369305bec8c",
+    "title": "Weekly Grocery Essentials",
+    "amount": 3450,
+    "category": "Food",
+    "date": "2026-11-07",
+    "note": "Fresh vegetables, dairy, pulses, and pantry staples",
+    "createdAt": "2026-11-07T06:12:45.202Z"
+  },
+  {
+    "id": "5fb9dfd7-08af-45e8-b8b4-388d9b62ba4e",
+    "title": "Broadband Fiber Internet Bill",
+    "amount": 999,
+    "category": "Bills",
+    "date": "2026-11-05",
+    "note": "200Mbps unlimited fiber auto-debit",
+    "createdAt": "2026-11-05T06:12:45.202Z"
+  },
+  {
+    "id": "31982ad8-af4c-4c41-94b3-1099fe1da50c",
+    "title": "Weekend Movie Tickets & Snacks",
+    "amount": 850,
+    "category": "Entertainment",
+    "date": "2026-11-03",
+    "note": "PVR IMAX tickets with popcorn",
+    "createdAt": "2026-11-03T06:12:45.202Z"
+  },
+  {
+    "id": "b4fcf218-57c1-4326-b9c0-79eba87dd4bd",
+    "title": "Winter Jacket",
+    "amount": 2999,
+    "category": "Shopping",
+    "date": "2026-11-02",
+    "note": "Warm fleece zip jacket",
+    "createdAt": "2026-11-02T06:12:45.202Z"
+  },
+  {
+    "id": "a8699b69-63ee-4ff6-a6d0-b1245dceac73",
+    "title": "Electricity & Utility Bill",
+    "amount": 1850,
+    "category": "Bills",
+    "date": "2026-10-28",
+    "note": "Monthly power and water bill",
+    "createdAt": "2026-10-28T18:12:45.202Z"
+  },
+  {
+    "id": "75e7b70a-9b39-461a-8317-ca10618e9594",
+    "title": "Dinner at Punjabi Rasoi",
+    "amount": 1450,
+    "category": "Food",
+    "date": "2026-10-24",
+    "note": "Family dinner with desserts",
+    "createdAt": "2026-10-24T14:12:45.202Z"
+  },
+  {
+    "id": "73566e86-8691-40f7-9a67-7a0bc54cf093",
+    "title": "Airport Cab Ride",
+    "amount": 780,
+    "category": "Transport",
+    "date": "2026-10-20",
+    "note": "Ola cab to terminal 3",
+    "createdAt": "2026-10-20T10:12:45.202Z"
+  }
+]
