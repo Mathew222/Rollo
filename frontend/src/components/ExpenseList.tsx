@@ -271,11 +271,11 @@ export const ExpenseList: React.FC<ExpenseListProps> = ({
                   </div>
 
                   {/* Actions */}
-                  <div className="flex items-center gap-1 opacity-90 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
+                  <div className="flex items-center gap-1 opacity-100 sm:opacity-80 sm:group-hover:opacity-100 transition-opacity">
                     <button
                       type="button"
                       onClick={() => onEdit(expense)}
-                      className="p-1.5 rounded-full text-neutral-500 hover:text-neutral-900 hover:bg-neutral-200/70 transition-colors cursor-pointer"
+                      className="p-1.5 rounded-full text-neutral-400 hover:text-neutral-900 hover:bg-neutral-200/70 transition-colors cursor-pointer"
                       title="Edit expense"
                       aria-label={`Edit ${expense.title}`}
                     >
@@ -284,7 +284,7 @@ export const ExpenseList: React.FC<ExpenseListProps> = ({
                     <button
                       type="button"
                       onClick={() => onDelete(expense)}
-                      className="p-1.5 rounded-full text-neutral-500 hover:text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
+                      className="p-1.5 rounded-full text-neutral-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
                       title="Delete expense"
                       aria-label={`Delete ${expense.title}`}
                     >

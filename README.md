@@ -1,37 +1,83 @@
-# Personal Expense Tracker
+# Rollo Expense Tracker
 
 A lightweight, modern full-stack personal expense tracking web application built for the **Software Engineer Practical Test**, denominated in **Indian Rupee (₹)** and styled with a warm, natural aesthetic using the **Outfit** typography family.
+
+---
+
+## Project Structure
+
+```
+Rollo/
+├── backend/                  # Python Flask REST API
+│   ├── data/                 # JSON file persistence
+│   │   └── expenses.json
+│   ├── server.py             # Flask application & endpoints
+│   ├── requirements.txt      # Python dependencies
+│   └── .env
+├── frontend/                 # React 19 + TypeScript + Vite UI
+│   ├── src/                  # React components, hooks, services
+│   ├── public/               # Public static assets
+│   ├── index.html            # Entry HTML
+│   ├── vite.config.ts        # Vite configuration (proxies /api to Flask)
+│   ├── tsconfig.json         # TypeScript configuration
+│   └── package.json          # Frontend dependencies
+├── package.json              # Workspace root scripts
+├── README.md
+└── .gitignore
+```
 
 ---
 
 ## 1. How to Run (Exact Commands)
 
 ### Prerequisites
+- **Python**: 3.9+ (3.13 tested)
 - **Node.js**: v18.0.0+ (v20+ recommended)
 - **npm**: v9.0.0+
 
 ### Setup & Launch
+
+#### Quick Start (From Project Root)
 1. **Install dependencies**:
    ```bash
+   pip install -r backend/requirements.txt
+   npm run install:frontend
    npm install
    ```
 
-2. **Run development server** (starts Express API & Vite dev server on port 3000):
+2. **Run both Backend & Frontend concurrently**:
    ```bash
    npm run dev
    ```
-   Open your browser at: `http://localhost:3000`
+   Open your browser at: **`http://localhost:3000`**
 
-3. **Type-checking & Linting**:
-   ```bash
-   npm run lint
-   ```
+---
 
-4. **Production Build & Execution**:
-   ```bash
-   npm run build
-   npm start
-   ```
+#### Running Independently
+
+**Backend (Python Flask):**
+```bash
+cd backend
+pip install -r requirements.txt
+python server.py
+```
+*(Runs on `http://127.0.0.1:5000`)*
+
+**Frontend (React + Vite):**
+```bash
+cd frontend
+npm install
+npm run dev
+```
+*(Runs on `http://localhost:3000` and proxies `/api` to port 5000)*
+
+---
+
+### Other Commands
+- **Testing & API Verification**: `npm run test` (or `python backend/test_server.py`)
+- **Type-checking & Linting**: `npm run lint`
+- **Production Frontend Build**: `npm run build`
+- **Run Production Server**: `python backend/server.py`
 
 ---
 
@@ -51,8 +97,8 @@ A lightweight, modern full-stack personal expense tracking web application built
 
 | Component | Choice | Tradeoff / Rationale |
 | :--- | :--- | :--- |
-| **Backend & Server** | **Node.js + Express** (`server.ts`) | **Pros**: Ultra-fast to implement, zero external server dependencies, provides clean RESTful API (`/api/expenses`, `/api/expenses/summary`).<br>**Tradeoff**: In-memory / file I/O rather than multi-process connection pools. |
-| **Database / Persistence** | **JSON file storage** (`data/expenses.json`) | **Pros**: Zero database daemon configuration (e.g. Postgres or Docker not required to grade), portable, human-readable, persists across page refreshes and server restarts.<br>**Tradeoff**: For high-concurrency production workloads with millions of records, an RDBMS (PostgreSQL/SQLite) with indexing on `date` and `category` would be preferred. For a single-user personal expense tracker, file storage provides ideal balance. |
+| **Backend & Server** | **Python + Flask** (`server.py`) | **Pros**: Clean RESTful API (`/api/expenses`, `/api/expenses/summary`), high developer productivity, simple deployment.<br>**Tradeoff**: JSON file persistence for test simplicity without requiring external database setup. |
+| **Database / Persistence** | **Supabase (PostgreSQL)** + JSON file fallback | **Pros**: Cloud PostgreSQL with full SQL capabilities, automatic UUID primary keys, and real-time query support. Includes automatic JSON file fallback if offline or unconfigured.<br>**Tradeoff**: Requires internet connection for cloud persistence; fallback ensures seamless offline development. |
 | **Frontend Framework** | **React 19 + TypeScript** | **Pros**: Declarative UI state, full type safety for expense records, reusable component hierarchy, instant reactive filtering and optimistic UI updates.<br>**Tradeoff**: Slightly larger bundle than vanilla JS, but drastically reduces boilerplate and state bugs. |
 | **Styling** | **Tailwind CSS v4** | **Pros**: Standardized design tokens, zero CSS runtime overhead, accessible typography hierarchy, high readability without CSS bloat. |
 
@@ -65,8 +111,8 @@ A lightweight, modern full-stack personal expense tracking web application built
    - **Zero results matching filters**: When search/filter returns no items, displays a clear "No matching expenses found" state with a 1-click "Reset All Filters" action.
 2. **Invalid & Hostile Inputs**:
    - Blank / whitespace-only titles are blocked with inline error messages.
-   - Non-numeric amounts, negative amounts, and zero amounts (`$0.00`) are blocked.
-   - Extremely large numbers ($10,000,000+) are capped.
+   - Non-numeric amounts, negative amounts, and zero amounts (`₹0.00`) are blocked.
+   - Extremely large numbers (`₹1,00,00,000+`) are capped.
    - Invalid category tampering rejected by both client validation and backend API.
    - Invalid dates (e.g., February 31st or malformed strings) caught by ISO validator.
 3. **Weird Date Ranges**:
@@ -90,7 +136,7 @@ A lightweight, modern full-stack personal expense tracking web application built
 
 ### Skipped (and Rationale based on Test Guidelines):
 - **User Authentication / Multi-tenancy**: Explicitly listed under *"What We Don't Care About"*; keeping it single-user minimizes configuration overhead for reviewers.
-- **Multi-currency conversion**: The prompt stated: *"in your local currency (no multi-currency)"*. Standard `$` formatting is used.
+- **Multi-currency conversion**: The prompt stated: *"in your local currency (no multi-currency)"*. Standard Indian Rupee (`₹`) formatting is used throughout.
 - **Complex cloud deployment**: Prompt specified *"Runs locally — no deployment required"*.
 - **Heavy chart libraries**: Built an accessible, lightweight native CSS proportional distribution bar to avoid heavy bundle dependencies like Chart.js/Recharts while delivering crystal-clear visual breakdown.
 

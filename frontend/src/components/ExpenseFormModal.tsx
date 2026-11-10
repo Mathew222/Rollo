@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, Calendar, DollarSign, Tag, FileText } from 'lucide-react';
+import { X, Calendar, DollarSign, Tag, FileText, Trash2 } from 'lucide-react';
 import {
   EXPENSE_CATEGORIES,
   Expense,
@@ -15,6 +15,7 @@ interface ExpenseFormModalProps {
   onSubmit: (data: ExpenseFormData) => Promise<void>;
   initialData?: Expense | null;
   isSubmitting?: boolean;
+  onDelete?: (expense: Expense) => void;
 }
 
 export const ExpenseFormModal: React.FC<ExpenseFormModalProps> = ({
@@ -23,6 +24,7 @@ export const ExpenseFormModal: React.FC<ExpenseFormModalProps> = ({
   onSubmit,
   initialData,
   isSubmitting = false,
+  onDelete,
 }) => {
   const [formData, setFormData] = useState<ExpenseFormData>({
     title: '',
@@ -324,26 +326,44 @@ export const ExpenseFormModal: React.FC<ExpenseFormModalProps> = ({
           </div>
 
           {/* Actions */}
-          <div className="pt-4 border-t border-neutral-100 flex items-center justify-end gap-2.5">
-            <button
-              type="button"
-              onClick={onClose}
-              disabled={isSubmitting}
-              className="px-5 py-2 text-xs font-semibold text-neutral-700 hover:bg-neutral-100 rounded-full transition-colors cursor-pointer border border-neutral-200"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="px-6 py-2 text-xs font-semibold text-white bg-neutral-900 hover:bg-neutral-800 rounded-full transition-colors cursor-pointer shadow-sm hover:shadow disabled:opacity-50"
-            >
-              {isSubmitting
-                ? 'Saving...'
-                : isEditing
-                ? 'Save Changes'
-                : 'Log Expense'}
-            </button>
+          <div className="pt-4 border-t border-neutral-100 flex items-center justify-between gap-2.5">
+            <div>
+              {isEditing && initialData && onDelete && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    onClose();
+                    onDelete(initialData);
+                  }}
+                  disabled={isSubmitting}
+                  className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-rose-600 hover:text-rose-700 hover:bg-rose-50 rounded-full transition-colors cursor-pointer"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                  <span>Delete</span>
+                </button>
+              )}
+            </div>
+            <div className="flex items-center gap-2.5">
+              <button
+                type="button"
+                onClick={onClose}
+                disabled={isSubmitting}
+                className="px-5 py-2 text-xs font-semibold text-neutral-700 hover:bg-neutral-100 rounded-full transition-colors cursor-pointer border border-neutral-200"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="px-6 py-2 text-xs font-semibold text-white bg-neutral-900 hover:bg-neutral-800 rounded-full transition-colors cursor-pointer shadow-sm hover:shadow disabled:opacity-50"
+              >
+                {isSubmitting
+                  ? 'Saving...'
+                  : isEditing
+                  ? 'Save Changes'
+                  : 'Log Expense'}
+              </button>
+            </div>
           </div>
         </form>
       </div>

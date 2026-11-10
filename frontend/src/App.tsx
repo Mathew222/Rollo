@@ -4,6 +4,7 @@
  */
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
+import { Trash2 } from 'lucide-react';
 import { Header } from './components/Header';
 import { OverviewHero } from './components/OverviewHero';
 import { CategoryGrid } from './components/CategoryGrid';
@@ -49,6 +50,8 @@ export default function App() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isResetting, setIsResetting] = useState(false);
+  const [isClearAllModalOpen, setIsClearAllModalOpen] = useState(false);
+  const [isClearingAll, setIsClearingAll] = useState(false);
 
   // Notification Toast state
   const [toast, setToast] = useState<ToastMessage | null>(null);
@@ -162,7 +165,10 @@ export default function App() {
       setTotalCount((prev) => Math.max(0, prev - 1));
       setDeletingExpense(null);
 
-      await loadSummary(selectedMonth);
+      await Promise.all([
+        loadExpenses(filter),
+        loadSummary(selectedMonth),
+      ]);
 
       setToast({
         id: Date.now().toString(),
@@ -178,8 +184,10 @@ export default function App() {
               date: targetExpense.date,
               note: targetExpense.note,
             });
-            await loadExpenses(filter);
-            await loadSummary(selectedMonth);
+            await Promise.all([
+              loadExpenses(filter),
+              loadSummary(selectedMonth),
+            ]);
             setToast({
               id: Date.now().toString(),
               type: 'success',
@@ -199,6 +207,35 @@ export default function App() {
       });
     } finally {
       setIsDeleting(false);
+    }
+  };
+
+  // Clear all uploaded data
+  const handleClearAllConfirm = async () => {
+    setIsClearingAll(true);
+    try {
+      await expenseApi.clearAllExpenses();
+      setExpenses([]);
+      setTotalCount(0);
+      setIsClearAllModalOpen(false);
+      await Promise.all([
+        loadExpenses(filter),
+        loadSummary(selectedMonth),
+      ]);
+      setToast({
+        id: Date.now().toString(),
+        type: 'success',
+        message: 'Deleted all uploaded data successfully',
+      });
+    } catch (err) {
+      console.error('Clear all error:', err);
+      setToast({
+        id: Date.now().toString(),
+        type: 'error',
+        message: 'Failed to delete data',
+      });
+    } finally {
+      setIsClearingAll(false);
     }
   };
 
@@ -261,6 +298,7 @@ export default function App() {
           setIsFormOpen(true);
         }}
         onResetDemo={handleResetDemo}
+        onClearAll={() => setIsClearAllModalOpen(true)}
         isResetting={isResetting}
         activeTab={activeTab}
         onTabChange={setActiveTab}

@@ -108,4 +108,16 @@ export const expenseApi = {
       throw new Error('Failed to reset demo data');
     }
   },
+
+  /**
+   * Clear all uploaded expenses
+   */
+  async clearAllExpenses(): Promise<void> {
+    const res = await fetch(`${API_BASE}/clear-all`, {
+      method: 'POST',
+    });
+    if (!res.ok) {
+      throw new Error('Failed to clear expenses');
+    }
+  },
 };

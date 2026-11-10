@@ -1,9 +1,10 @@
 import React from 'react';
-import { Plus, RotateCcw, Wallet } from 'lucide-react';
+import { Plus, RotateCcw, Trash2 } from 'lucide-react';
 
 interface HeaderProps {
   onAddExpense: () => void;
   onResetDemo: () => void;
+  onClearAll?: () => void;
   isResetting?: boolean;
   activeTab?: 'dashboard' | 'transactions' | 'categories';
   onTabChange?: (tab: 'dashboard' | 'transactions' | 'categories') => void;
@@ -12,6 +13,7 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({
   onAddExpense,
   onResetDemo,
+  onClearAll,
   isResetting = false,
   activeTab = 'dashboard',
   onTabChange,
@@ -26,7 +28,7 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
           <div>
             <span className="text-base font-bold tracking-tight text-neutral-900 block leading-tight">
-              Aura <span className="text-neutral-400 font-normal">Finance</span>
+              Rollo <span className="text-neutral-400 font-normal">Expense Tracker</span>
             </span>
             <span className="text-[11px] text-neutral-500 hidden sm:block">Personal Expense Studio &middot; INR</span>
           </div>
@@ -71,6 +73,18 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Zone 3: Actions + User Profile */}
         <div className="flex items-center gap-2.5">
+          {onClearAll && (
+            <button
+              type="button"
+              onClick={onClearAll}
+              title="Delete all uploaded data"
+              className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-rose-600 hover:text-rose-700 hover:bg-rose-50 rounded-full border border-rose-200/80 transition-colors cursor-pointer bg-white/60"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Delete All Data</span>
+            </button>
+          )}
+
           <button
             type="button"
             onClick={onResetDemo}

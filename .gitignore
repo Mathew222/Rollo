@@ -1,8 +1,15 @@
 node_modules/
-build/
+**/node_modules/
 dist/
+**/dist/
+build/
+**/build/
 coverage/
 .DS_Store
 *.log
+__pycache__/
+**/__pycache__/
+*.pyc
+**/*.pyc
 .env*
 !.env.example

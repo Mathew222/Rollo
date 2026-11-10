@@ -1,5 +1,14 @@
 [
   {
+    "id": "d520729a-2157-4c9c-b897-994f61311438",
+    "title": "Coffee",
+    "amount": 10.0,
+    "category": "Food",
+    "date": "2026-11-10",
+    "note": "tasty",
+    "createdAt": "2026-11-10T06:41:50.096289Z"
+  },
+  {
     "id": "66b90efd-c0eb-4336-a69b-93cd03ff2706",
     "title": "Coffee & Breakfast at Blue Tokai",
     "amount": 380,
